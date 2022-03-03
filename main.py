@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 import time
-
 import keep_alive
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
