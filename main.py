@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import time
-import keep_alive
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
@@ -386,6 +385,4 @@ def main():
 
 
 if __name__ == "__main__":
-    keep_alive.keep_alive()
-    token = os.environ.get("Token")
     main()
