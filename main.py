@@ -75,8 +75,8 @@ def user_in_bd(user_id, user_bd, database):
         for colm in user_bd:
             if str(user_id) == colm['id']:
                 return int(user_bd.index(colm))
-        database.insert("user", "(id)", f"('{user_id}')")
-        database.editing('user', "mode = 'main'", f"id = '{user_id}'")
+        database.insert("users", "id", f"('{user_id}')")
+        database.editing('users', "mode = 'main'", f"id = '{user_id}'")
     except:
       print('user_in_bd')
 
