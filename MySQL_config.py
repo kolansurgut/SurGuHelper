@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import config
 import psycopg2
 from config import db_uri
 
@@ -7,11 +6,6 @@ from config import db_uri
 class MySQL_config:
 
     def __init__(self):
-        self.host = config.host
-        self.port = 3306
-        self.user = config.user
-        self.password = config.password
-        self.database = config.database
         self.connection = self.connect()
         self.cursor = self.connection.cursor()
 
