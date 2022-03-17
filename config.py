@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 token = 'aeeb5f51e0be54d84d32e29ff4a2c5bd85c326051d8ff0403835c30b3723fc1c45fe2c3a740d5b57dfd0a'
+db_uri = 'postgres://bzhzxezmzemsyi:56cfc7bce4cf154a11cfea8867ca55b5f5666f890a614c0f43e0cc580fda3927@ec2-52-31-201-170.eu-west-1.compute.amazonaws.com:5432/d8agdqpk8c2dke'
 group_id = -207094965
 host = "kolansub.beget.tech"
 user = "kolansub_surgu"
