@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 token = 'aeeb5f51e0be54d84d32e29ff4a2c5bd85c326051d8ff0403835c30b3723fc1c45fe2c3a740d5b57dfd0a'
 group_id = -207094965
-host = "kolansub.beget.tech"
-user = "kolansub_surgu"
+host = "sitenk03.beget.tech"
+user = "sitenk03_surgu"
 password = "127912mamA"
-database = 'kolansub_surgu'
+database = 'sitenk03_surgu'
 
 list_keyboards = \
     {
