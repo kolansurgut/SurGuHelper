@@ -182,8 +182,8 @@ def main():
 
                         elif msg == 'неделя':
                             today = datetime.date.today()
-                            september = datetime.date(2021, 8, 30)
-                            delta = today - september
+                            start_date = datetime.date(2022, 1, 31)
+                            delta = today - start_date
                             week = delta.total_seconds() / 3600 / 24 / 7
                             if week % 2 < 1:
                                 send_message(user_id, f'{int((week // 1) + 1)} неделя: Числитель')
