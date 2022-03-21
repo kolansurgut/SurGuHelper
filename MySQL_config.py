@@ -1,28 +1,16 @@
 # -*- coding: utf-8 -*-
-import config
-import pymysql
+import psycopg2
+from config import db_uri
 
 
 class MySQL_config:
 
     def __init__(self):
-        self.host = config.host
-        self.port = 3306
-        self.user = config.user
-        self.password = config.password
-        self.database = config.database
         self.connection = self.connect()
         self.cursor = self.connection.cursor()
 
     def connect(self):
-        return pymysql.connect(
-            host=self.host,
-            port=self.port,
-            user=self.user,
-            password=self.password,
-            database=self.database,
-            cursorclass=pymysql.cursors.DictCursor
-        )
+        return psycopg2.connect(db_uri, sslmode="require")
 
     def output(self, database):
         # Выводит базу данных в переменную
