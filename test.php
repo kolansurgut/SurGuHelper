@@ -1,2 +1,2 @@
 <?php
-print "Сытенко Николай";
+print "SurGUHelper";
