@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import config
 import pymysql
 
@@ -25,7 +24,6 @@ class MySQL_config:
         )
 
     def output(self, database):
-        # Выводит базу данных в переменную
         self.cursor.execute(f"SELECT * FROM {database}")
         return self.cursor.fetchall()
 

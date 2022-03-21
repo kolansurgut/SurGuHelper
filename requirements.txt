@@ -1,0 +1,3 @@
+vk-api
+pyowm
+pymysql

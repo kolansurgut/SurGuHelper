@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 import time
+
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
@@ -77,6 +77,7 @@ def user_in_bd(user_id, user_bd, database):
                 return int(user_bd.index(colm))
         database.insert("user", "(id)", f"('{user_id}')")
         database.editing('user', "mode = 'main'", f"id = '{user_id}'")
+        return 'нету'
     except:
       print('user_in_bd')
 
@@ -131,16 +132,16 @@ def search_teacher(teacher_bd):
 def write_teachers(teacher_list, teacher_bd, user_id, database):
     for i in range(len(teacher_list)):
         send_message(user_id, f'{teacher_bd[int(teacher_list[i]) - 1]["name"]}\n\n'
-                              f'Институт {teacher_bd[int(teacher_list[i])]["institute"]}\n\n'
-                              f'Кафедра {teacher_bd[int(teacher_list[i])]["department"]}\n\n'
+                              f'Институт {teacher_bd[int(teacher_list[i]) - 1]["institute"]}\n\n'
+                              f'Кафедра {teacher_bd[int(teacher_list[i]) - 1]["department"]}\n\n'
                               f'Должность:\n'
-                              f'{teacher_bd[int(teacher_list[i])]["post"]}\n\n'
+                              f'{teacher_bd[int(teacher_list[i]) - 1]["post"]}\n\n'
                               f'Преподаваемые дисциплины:\n'
-                              f'{teacher_bd[int(teacher_list[i])]["couple"]}\n\n'
+                              f'{teacher_bd[int(teacher_list[i]) - 1]["couple"]}\n\n'
                               f'Телефон:\n'
-                              f'{teacher_bd[int(teacher_list[i])]["number"]}\n\n'
+                              f'{teacher_bd[int(teacher_list[i]) - 1]["number"]}\n\n'
                               f'Почта:\n'
-                              f'{teacher_bd[int(teacher_list[i])]["e-mail"]}')
+                              f'{teacher_bd[int(teacher_list[i]) - 1]["e-mail"]}')
 
     database.editing('user', "teachers = ''", f"id = '{user_id}'")
     send_message(user_id, 'Совпадения закончились.', calling_keyboard('поиск сотрудника'))
@@ -155,7 +156,7 @@ def main():
                     database = MySQL_config()
                     user_bd = database.output("user")
                     index = user_in_bd(user_id, user_bd, database)
-                    if not index:
+                    if index == 'нету':
                         send_message(user_id, 'Привет! \n'
                                               'Я твой помощник по СурГу. \n'
                                               'Напиши "Начать", чтобы узнать, \n'
@@ -181,8 +182,8 @@ def main():
 
                         elif msg == 'неделя':
                             today = datetime.date.today()
-                            september = datetime.date(2021, 8, 30)
-                            delta = today - september
+                            start_date = datetime.date(2022, 1, 31)
+                            delta = today - start_date
                             week = delta.total_seconds() / 3600 / 24 / 7
                             if week % 2 < 1:
                                 send_message(user_id, f'{int((week // 1) + 1)} неделя: Числитель')
@@ -214,7 +215,7 @@ def main():
                                                   '4 пара) 13:30-15:00\n'
                                                   '5 пара) 15:05-16:35\n'
                                                   '\n'
-                                                  'Расписание в бассеине\n'
+                                                  'Расписание в бассейне\n'
                                                   '"Водолей":\n'
                                                   '\n'
                                                   '1 пара) 11:00-11:45\n'
@@ -240,7 +241,7 @@ def main():
                                                   'Корпус "С" - Спортивный комплекс "Дружба":\n'
                                                   'Ул.50 лет ВЛКСМ, д.9А\n'
                                                   '\n'
-                                                  'Бассеин "Водолей":\n'
+                                                  'Бассейн "Водолей":\n'
                                                   'Ул.30 лет Победы, д.22А')
 
                         elif len(msg) == 6 and \
@@ -257,7 +258,7 @@ def main():
                                 if user_bd[index]['institute'] == department['institute'] and str(
                                         department['num']) == msg:
                                     send_message(user_id, f"Институт {department['institute']}:\n\n"
-                                                          f"{department['department']}\n\n:"
+                                                          f"{department['department']}:\n\n"
                                                           f"E-mail: {department['e-mail']}\n\n"
                                                           f"Телефон: {department['number']}\n\n"
                                                           f"Страница на сайте СурГу:\n"
