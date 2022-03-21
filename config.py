@@ -7,14 +7,14 @@ database = 'sitenk03_surgu'
 
 list_keyboards = \
     {
-        "начать": [False, [['Карта СурГу', 'SECONDARY', False],
+        "начать": [False, [['Неделя', 'SECONDARY', False],
                            ['Кафедры', 'SECONDARY', False],
                            ['Погода', 'SECONDARY', True],
                            ['Расписание пар', 'PRIMARY', False],
                            ['Расписание звонков', 'PRIMARY', True],
                            ['Информация о корпусах', 'SECONDARY', True],
                            ['Поиск сотрудника', 'PRIMARY', False],
-                           ['Неделя', 'PRIMARY', True],
+                           ['Карта СурГу', 'PRIMARY', True],
                            ['Закрыть клавиатуру', 'NEGATIVE', False]]],
 
         'карта сургу': [False, [['Главный', 'SECONDARY', False],
