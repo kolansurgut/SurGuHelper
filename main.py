@@ -6,7 +6,7 @@ from vk_api.utils import get_random_id
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from pyowm import OWM
 import datetime
-from config import token, maps, list_keyboards
+from config import maps, list_keyboards
 from MySQL_config import MySQL_config
 import os
 from dotenv import load_dotenv

@@ -1,4 +1,3 @@
-import config
 import pymysql
 import os
 from dotenv import load_dotenv
@@ -8,7 +7,7 @@ class MySQL_config:
     def __init__(self):
         load_dotenv()
         self.host = os.getenv('host')
-        self.port = 3306
+        self.port = os.getenv('port')
         self.user = os.getenv('user')
         self.password = os.getenv('password')
         self.database = os.getenv('database')
