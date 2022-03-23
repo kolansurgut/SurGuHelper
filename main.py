@@ -9,8 +9,10 @@ import datetime
 from config import token, maps, list_keyboards
 from MySQL_config import MySQL_config
 import os
+from dotenv import load_dotenv
 
-token = token
+load_dotenv()
+token = os.getevn('token')
 vk_session = vk_api.VkApi(token=token)
 session_api = vk_session.get_api()
 
