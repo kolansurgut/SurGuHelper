@@ -2,11 +2,11 @@ import config
 import pymysql
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
 class MySQL_config:
 
     def __init__(self):
+        load_dotenv()
         self.host = os.getenv('host')
         self.port = 3306
         self.user = os.getenv('user')

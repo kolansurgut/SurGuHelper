@@ -12,7 +12,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-token = os.getevn('token')
+token = os.getenv('token')
 vk_session = vk_api.VkApi(token=token)
 session_api = vk_session.get_api()
 
