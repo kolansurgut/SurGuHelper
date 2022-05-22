@@ -1,16 +1,22 @@
 import pymysql
-import os
-from dotenv import load_dotenv
+import config
+# import os
+# from dotenv import load_dotenv
+
 
 class MySQL_config:
-
     def __init__(self):
-        load_dotenv()
-        self.host = os.getenv('host')
-        self.port = os.getenv('port')
-        self.user = os.getenv('user')
-        self.password = os.getenv('password')
-        self.database = os.getenv('database')
+        # load_dotenv()
+        # self.host = os.getenv('host')
+        # self.port = os.getenv('port')
+        # self.user = os.getenv('user')
+        # self.password = os.getenv('password')
+        # self.database = os.getenv('database')
+        self.host = config.host
+        self.port = 3306
+        self.user = config.user
+        self.password = config.password
+        self.database = config.database
         self.connection = self.connect()
         self.cursor = self.connection.cursor()
 

@@ -5,13 +5,13 @@ from vk_api.utils import get_random_id
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from pyowm import OWM
 import datetime
-from config import maps, list_keyboards
+from config import token, list_keyboards, institute_dict, maps
 from MySQL_config import MySQL_config
-import os
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
 
-load_dotenv()
-token = os.getenv('token')
+# load_dotenv()
+# token = os.getenv('token')
 vk_session = vk_api.VkApi(token=token)
 session_api = vk_session.get_api()
 
@@ -21,25 +21,29 @@ teacher_bd = database.output("teacher")
 
 
 def weather_manager():
-    owm = OWM('fd28431ded597cbba3fbe85afeae4de5')
-    manager = owm.weather_manager()
-    observation = manager.weather_at_place('Сургут, ru')
-    weather = observation.weather
-    # температура
-    temps = weather.temperature('celsius')
-    temp = temps['temp']
-    feels_like = temps['feels_like']
-    # ветер
-    wind_speed = weather.wind()['speed']
-    # влажность
-    humidity = weather.humidity
-    # давление
-    pressure = str(int(weather.pressure['press']) * 0.750064)[:6]
-    return f'В Сургуте сейчас {temp}°С \n' \
-           f'Ощущается как {feels_like}°С \n' \
-           f'Ветер {wind_speed} м/с \n' \
-           f'Влажность {humidity}% \n' \
-           f'Давление {pressure} мм. рт. ст.'
+    try:
+        owm = OWM('fd28431ded597cbba3fbe85afeae4de5')
+        manager = owm.weather_manager()
+        observation = manager.weather_at_place('Сургут, ru')
+        weather = observation.weather
+        # температура
+        temps = weather.temperature('celsius')
+        temp = temps['temp']
+        feels_like = temps['feels_like']
+        # ветер
+        wind_speed = weather.wind()['speed']
+        # влажность
+        humidity = weather.humidity
+        # давление
+        pressure = str(int(weather.pressure['press']) * 0.750064)[:6]
+        return f'В Сургуте сейчас {temp}°С \n' \
+               f'Ощущается как {feels_like}°С \n' \
+               f'Ветер {wind_speed} м/с \n' \
+               f'Влажность {humidity}% \n' \
+               f'Давление {pressure} мм. рт. ст.'
+    except:
+        print(weather_manager)
+        main()
 
 
 def send_message(user_id, message=None, keyboard=None):
@@ -76,7 +80,7 @@ def user_in_bd(user_id, user_bd, database):
         for colm in user_bd:
             if str(user_id) == colm['id']:
                 return int(user_bd.index(colm))
-        database.insert("user", "(id)", f"('{user_id}')")
+        # database.insert("user", "(id)", f"('{user_id}')")
         database.editing('user', "mode = 'main'", f"id = '{user_id}'")
         return 'нету'
     except:
@@ -124,28 +128,43 @@ def property_color(color):
 
 
 def search_teacher(teacher_bd):
-    teacher_list = ''
-    for teacher in teacher_bd:
-        teacher_list += str(teacher['id']) + ','
-    return teacher_list[:-1]
+    try:
+        teacher_list = ''
+        for teacher in teacher_bd:
+            teacher_list += str(teacher['id']) + ','
+        return teacher_list[:-1]
+    except:
+        print(search_teacher)
+        main()
 
 
-def write_teachers(teacher_list, teacher_bd, user_id, database):
-    for i in range(len(teacher_list)):
-        send_message(user_id, f'{teacher_bd[int(teacher_list[i]) - 1]["name"]}\n\n'
-                              f'Институт {teacher_bd[int(teacher_list[i]) - 1]["institute"]}\n\n'
-                              f'Кафедра {teacher_bd[int(teacher_list[i]) - 1]["department"]}\n\n'
-                              f'Должность:\n'
-                              f'{teacher_bd[int(teacher_list[i]) - 1]["post"]}\n\n'
-                              f'Преподаваемые дисциплины:\n'
-                              f'{teacher_bd[int(teacher_list[i]) - 1]["couple"]}\n\n'
-                              f'Телефон:\n'
-                              f'{teacher_bd[int(teacher_list[i]) - 1]["number"]}\n\n'
-                              f'Почта:\n'
-                              f'{teacher_bd[int(teacher_list[i]) - 1]["e-mail"]}')
+def write_teachers(teacher_list, teacher_bd, user_id, database, count):
+    try:
+        if not count:
+            count = len(teacher_list)
+        for i in range(count):
+            send_message(user_id, f'{teacher_bd[int(teacher_list[0]) - 1]["name"]}\n\n'
+                                  f'Институт {teacher_bd[int(teacher_list[0]) - 1]["institute"]}\n\n'
+                                  f'Кафедра {teacher_bd[int(teacher_list[0]) - 1]["department"]}\n\n'
+                                  f'Должность:\n'
+                                  f'{teacher_bd[int(teacher_list[0]) - 1]["post"]}\n\n'
+                                  f'Преподаваемые дисциплины:\n'
+                                  f'{teacher_bd[int(teacher_list[0]) - 1]["couple"]}\n\n'
+                                  f'Телефон:\n'
+                                  f'{teacher_bd[int(teacher_list[0]) - 1]["number"]}\n\n'
+                                  f'Почта:\n'
+                                  f'{teacher_bd[int(teacher_list[0]) - 1]["e-mail"]}\n\n'
+                                  f'_______________________________')
+            del teacher_list[0]
 
-    database.editing('user', "teachers = ''", f"id = '{user_id}'")
-    send_message(user_id, 'Совпадения закончились.', calling_keyboard('поиск сотрудника'))
+        if teacher_list:
+            database.editing('user', f"teachers = '{','.join(teacher_list)}'", f"id = '{user_id}'")
+        else:
+            database.editing('user', "teachers = ''", f"id = '{user_id}'")
+            send_message(user_id, 'Совпадения закончились.', calling_keyboard('поиск сотрудника'))
+    except:
+        print(write_teachers)
+        main()
 
 
 def main():
@@ -255,10 +274,11 @@ def main():
                         elif len(msg) <= 2 and '0' < msg <= '9':
                             database = MySQL_config()
                             user_bd = database.output("user")
+                            institute_bd = database.output("Institute")
                             for department in department_bd:
                                 if user_bd[index]['institute'] == department['institute'] and str(
                                         department['num']) == msg:
-                                    send_message(user_id, f"Институт {department['institute']}:\n\n"
+                                    send_message(user_id, f"{institute_bd[department['institute']-1]['name']}:\n\n"
                                                           f"{department['department']}:\n\n"
                                                           f"E-mail: {department['e-mail']}\n\n"
                                                           f"Телефон: {department['number']}\n\n"
@@ -276,11 +296,15 @@ def main():
                                      'экономики и управления',
                                      'медицинский',
                                      'политехнический']:
+
                             database = MySQL_config()
-                            database.editing('user', f"institute = '{msg}'", f"id = '{user_id}'")
-                            department_output = f'Институт {msg}:\n\n'
+                            institute_bd = database.output("Institute")
+                            institute = institute_bd[institute_dict[msg]-1]
+
+                            database.editing('user', f"institute = '{institute_dict[msg]}'", f"id = '{user_id}'")
+                            department_output = f'{institute["name"]}:\n\n'
                             for department in department_bd:
-                                if department['institute'] == msg:
+                                if department['institute'] == institute_dict[msg]:
                                     department_output += f'{department["num"]}) {department["department"]}\n\n'
                             send_message(user_id, department_output)
 
@@ -333,12 +357,20 @@ def main():
                             #                       'Преподаватель,\n'
                             #                       'Ассистент.')
 
-                        elif msg == 'показать':
+                        elif msg[:8] == 'показать':
                             teacher_bd = database.output("teacher")
-                            if len(user_bd[index]["teachers"]) >= 1:
-                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database)
+                            len_tl = len(user_bd[index]["teachers"].split(","))
+                            if len_tl >= 1 and msg == 'показать одно':
+                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, 1)
+                            elif len_tl >= 5 and msg == 'показать пять':
+                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, 5)
+                            elif len_tl >= 10 and msg == 'показать десять':
+                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, 10)
+                            elif len_tl >= 10 and msg == 'показать все':
+                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, None)
                             else:
-                                send_message(user_id, 'Совпадений не найдено.', calling_keyboard('поиск сотрудника'))
+                                send_message(user_id, 'Столько совпадений не найдено.', calling_keyboard('совпадения'))
+
                         else:
                             database = MySQL_config()
                             database.editing('user', "teachers = ''", f"id = '{user_id}'")

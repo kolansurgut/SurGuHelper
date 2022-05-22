@@ -1,3 +1,11 @@
+token = 'aeeb5f51e0be54d84d32e29ff4a2c5bd85c326051d8ff0403835c30b3723fc1c45fe2c3a740d5b57dfd0a'
+group_id = -207094965
+port = 3306
+host = "sitenk03.beget.tech"
+user = "sitenk03_surgu"
+password = "127912mamA"
+database = 'sitenk03_surgu'
+
 list_keyboards = \
     {
         "начать": [False, [['Неделя', 'SECONDARY', False],
@@ -35,6 +43,14 @@ list_keyboards = \
                                ['Показать все', 'SECONDARY', True],
                                ['Отмена', 'NEGATIVE', False]]]
     }
+
+institute_dict = {
+                                'государства и права': 1,
+                                'гуманитарного образования и спорта': 2,
+                                'естественных и технических наук': 3,
+                                'экономики и управления': 4,
+                                'медицинский': 5,
+                                'политехнический': 6}
 
 maps = \
     {
