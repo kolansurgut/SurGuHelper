@@ -40,7 +40,6 @@ list_keyboards = \
         'совпадения': [False, [['Показать одно', 'PRIMARY', False],
                                ['Показать пять', 'PRIMARY', True],
                                ['Показать десять', 'SECONDARY', False],
-                               ['Показать все', 'SECONDARY', True],
                                ['Отмена', 'NEGATIVE', False]]]
     }
 

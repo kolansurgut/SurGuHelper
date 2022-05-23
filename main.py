@@ -7,7 +7,7 @@ from pyowm import OWM
 import datetime
 from config import token, list_keyboards, institute_dict, maps
 from MySQL_config import MySQL_config
-# import os
+import os
 # from dotenv import load_dotenv
 
 # load_dotenv()
@@ -42,7 +42,7 @@ def weather_manager():
                f'Влажность {humidity}% \n' \
                f'Давление {pressure} мм. рт. ст.'
     except:
-        print(weather_manager)
+        print('weather_manager')
         main()
 
 
@@ -80,11 +80,11 @@ def user_in_bd(user_id, user_bd, database):
         for colm in user_bd:
             if str(user_id) == colm['id']:
                 return int(user_bd.index(colm))
-        # database.insert("user", "(id)", f"('{user_id}')")
+        database.insert("user", "(id)", f"('{user_id}')")
         database.editing('user', "mode = 'main'", f"id = '{user_id}'")
         return 'нету'
     except:
-      print('user_in_bd')
+        print('user_in_bd')
 
 
 def calling_keyboard(msg):
@@ -168,7 +168,7 @@ def write_teachers(teacher_list, teacher_bd, user_id, database, count):
 
 
 def main():
-    try:
+    # try:
         while True:
             for event in VkLongPoll(vk_session).listen():
                 if event.type == VkEventType.MESSAGE_NEW and not event.from_me and event.from_user:
@@ -366,8 +366,8 @@ def main():
                                 write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, 5)
                             elif len_tl >= 10 and msg == 'показать десять':
                                 write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, 10)
-                            elif len_tl >= 10 and msg == 'показать все':
-                                write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, None)
+                            # elif len_tl >= 10 and msg == 'показать все':
+                            #     write_teachers(user_bd[index]["teachers"].split(","), teacher_bd, user_id, database, None)
                             else:
                                 send_message(user_id, 'Столько совпадений не найдено.', calling_keyboard('совпадения'))
 
@@ -413,10 +413,13 @@ def main():
                         #                      calling_keyboard('совпадения'))
                         #     else:
                         #         send_message(user_id, 'Совпадений не найдено.')
-    except:
-        print('main')
-        main()
+    # except:
+    #     print('main')
 
 
 if __name__ == "__main__":
+    main()
+
+
+while True:
     main()
