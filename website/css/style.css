@@ -1,0 +1,127 @@
+.logo_surgu {
+    max-width: 100px;
+    padding: 20px;
+}
+
+header{
+    width: 100%;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    border-bottom: 3px solid rgb(0, 115, 187);
+    border-top: 3px solid rgb(0, 115, 187);
+    margin-bottom: 20px;
+    background-color: azure;
+}
+
+.form{
+    margin: 40px 20px 0px 40px;
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.forms{
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+.surgu_text{
+    margin-top: 15px;
+    font-size: 40px;
+}
+
+.surgu_text_down{
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style-type: none;
+}
+
+.vk_autorize{
+    height: 50px;
+    margin-left: 150px;
+    margin-top: 50px;
+    font-size: 30px;
+    text-align:center;
+    text-decoration: none;
+    color: black;
+}
+
+.speech{
+    font-size: 30px;
+}
+
+.appeal{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.purpose{
+    margin-left: 300px;
+    font-weight: bolder;
+}
+
+.request{
+    margin-left: 300px;
+    font-weight: bolder;
+}
+
+.thank{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.vk_autorize_name{
+    margin-left: 200px;
+    margin-top: 50px;
+    height: 50px;
+    font-size: 60px;
+    text-decoration: none;
+    color: black;
+}
+
+.vk_autorize:hover, .form:hover{
+    color: rgb(0,115,187);
+}
+
+label, input{
+    margin:10px 10px 10px 590px;
+    border-radius:10px;
+    width: 280px;
+    height: 30px;
+}
+
+.send_btn{
+    margin-left: 685px;
+    margin-right: 1000px;
+    border-radius:10px;
+    margin-bottom: 10px;
+}
+
+.back_btn{
+    padding: 1px 7px 1px 7px;
+    margin-left: 697px;
+    margin-top: 15px;
+    border-radius:10px;
+    text-decoration: none;
+    background: rgb(220,220,220);
+    color: black;
+    border: 2px solid rgb(100,100,100);
+}
+
+body{
+    margin-left: auto;
+    margin-right: auto;
+    background: url(/website/img/background_body1.png) no-repeat center;
+    -webkit-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+}

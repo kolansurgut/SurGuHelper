@@ -1,5 +1,4 @@
 <?php
-
 $fields_department = [
     'department' => [
         'field_name' => 'Название кафедры',
@@ -19,7 +18,7 @@ $fields_department = [
     ],
     'office' => [
         'field_name' => 'Кабинет кафедры',
-        'required' => 0,
+        'required' => 0
     ]
 ];
 

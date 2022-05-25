@@ -1,15 +1,17 @@
+<?php
+    session_start();
+?>
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>SurGUHelper</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
+    <?php
+    require_once ('header.php');
+    ?>
 <body>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -47,33 +49,34 @@
                     <input type="text" class="form-control" id="post" name="post">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="index.php">Назад</a>
+                <button class="send_btn">Отправить</button>
+                <a class="back_btn" href="index.php">Назад</a>
             </form>
 
         </div>
     </div>
 </div>
 
-
 <?php
-
+require_once ('connect.php');
 require_once 'data.php';
 require_once 'functions.php';
 
 if(!empty($_POST)){
-    debug($_POST);
-    $fields = load($fields_teacher);
-    debug($fields);
-    if($errors = validate($fields)){
-        debug($errors);
-    }else{
-        echo 'OK';
-    }
+    $connect->query("INSERT INTO `editing_teacher` (`name`, `institute`, `department`, `phone`, `email`, `post`) VALUES('".$_POST['name']."', '".$_POST['institute']."', '".$_POST['department']."', '".$_POST['phone']."', '".$_POST['email']."',  '".$_POST['post']."')");
 
-    echo "Форма успешно отправлена!";
+    //    debug($_POST);
+//    debug($_POST);
+//    $fields = load($fields_teacher);
+//    debug($fields);
+//    if($errors = validate($fields)){
+//        debug($errors);
+//    }else{
+//        echo 'OK';
+//    }
+
+//    echo "Форма успешно отправлена!";
 }?>
-
 
 </body>
 </html>
