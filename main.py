@@ -168,7 +168,7 @@ def write_teachers(teacher_list, teacher_bd, user_id, database, count):
 
 
 def main():
-    # try:
+    try:
         while True:
             for event in VkLongPoll(vk_session).listen():
                 if event.type == VkEventType.MESSAGE_NEW and not event.from_me and event.from_user:
@@ -413,8 +413,8 @@ def main():
                         #                      calling_keyboard('совпадения'))
                         #     else:
                         #         send_message(user_id, 'Совпадений не найдено.')
-    # except:
-    #     print('main')
+    except:
+        print('main')
 
 
 if __name__ == "__main__":
